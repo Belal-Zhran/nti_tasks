@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $name    = $email    = $password    = $address    = $linkedin    = $gender = "";
     $nameErr = $emailErr = $passwordErr = $addressErr = $linkedinErr = $genderErr = "";
 
-    $errors = array ($nameErr, $emailErr, $passwordErr, $addressErr, $linkedinErr, $genderErr);
+    
 
 
     // collect value of input field
@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $password =  $_POST['password'] ;
     $address  =  clear_input($_POST['address']) ;
     $linkedin =  $_POST['linkedin'] ;    
+    $gender   = $_POST['gender'] ; 
 
 
 
@@ -96,23 +97,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     //Dealing with Gender
     if(empty($gender)){
-        $genderErr = "password is required !<br>";
+        $genderErr = "gender is required !<br>";
     }
 
 
     //Dealing with Errors
-    if (count($errors)>= 1){
+    $errors = array ($nameErr, $emailErr, $passwordErr, $addressErr, $linkedinErr, $genderErr);
+
+    if (count($errors) == 0){
+        
+        echo "Thank you for submiting ^_^";
+        
+    }elseif(count($errors) > 0){
+                
         //Showing Error Messages
         foreach($errors as $index => $errmsg){
-            if (empty($errmsg)){
+                if (empty($errmsg)){
                 continue;
-            }else{
-                echo "<br>".$errmsg."<br>" ;
-            }
-        }
- 
-    }else{
-        echo "Thank you for submiting ^_^";
+                
+                }else{
+                    echo "<br>".$errmsg."<br>" ;
+                }
+            }//end foreach
     }
 
 
@@ -120,8 +126,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 }else{
     echo "Sorry !<br>you don't have permission on this page!";
 }
-
-
-
-
-
